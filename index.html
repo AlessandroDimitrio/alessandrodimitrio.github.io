@@ -3,16 +3,19 @@
         <title>Anatomia</title>
         <link rel="stylesheet" href="style.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <meta name=" theme-color" content="#222f3e">
     </head>
     <body>
+        <div class="topbanner"></div>
         <div class="container">
-        <label id="label">Osteologia</label>
-        <h2 id="osteologia">...</h2>
-        <label id="label">Artrologia</label>
-        <h2 id="artologia">...</h2>
-        <label id="label">Miologia</label>
-        <h2 id="miologia">...</h2>
-        <button onclick="createQuestion()">Rigenera</button>
+            <label id="label">Osteologia</label>
+            <h4 id="osteologia">...</h4>
+            <label id="label">Artrologia</label>
+            <h4 id="artologia">...</h4>
+            <label id="label">Miologia</label>
+            <h4 id="miologia">...</h4>
+        <button onclick="createQuestion()" class="btn btn-primary">Rigenera</button>
     </div>
         <script>
             document.addEventListener("DOMContentLoaded", function(event) { 
@@ -20,7 +23,7 @@
             });
             var osteologia = ["Cavita orbitaria","Gabbia toracica","Osso etmoide","Ossa del bacino","Fossa infratemporale e pterigopalatina","Fossa cranica posteriore","Base esterna del cranio","Osso sfenoide","Cavità nasale","Sterno e coste","Osso sfenoide","Vertebre cervicali","Mandibola"]
             var artrologia = ["Articolazione coxofemorale","Articolazione del gomito","Generalità di una diartrosi","Generalità di una sinartrosi","Articolazioni della colonna vertebrale","Articolazione temporomandibolare","Articolazione della caviglia"]
-            var miologia = ["Muscoli della loggia anteriore e posteriore della coscia","Muscoli del braccio","Muscoli dell'addome e canale inguinale","Descrizione del cavo ascellare","Triangolo femorale e canale degli adduttori","Muscoli della loggia anteriore dell'avambraccio","Fasce del collo e muscoli sopra- e sottoioidei","Muscoli della spalla","Muscoli della loggia posteriore","dell'avambraccio","Muscoli della parete anterolaterale dell'addome","Descrizione del triangolo femorale e dei muscoli","Muscoli e descrizione della loggia poplitea","Muscoli del cavo ascellare"]
+            var miologia = ["Muscoli della loggia anteriore e posteriore della coscia","Muscoli del braccio","Muscoli dell'addome e canale inguinale","Descrizione del cavo ascellare","Triangolo femorale e canale degli adduttori","Muscoli della loggia anteriore dell'avambraccio","Fasce del collo e muscoli sopra e sottoioidei","Muscoli della spalla","Muscoli della loggia posteriore dell'avambraccio","Muscoli della parete anterolaterale dell'addome","Descrizione del triangolo femorale e dei muscoli","Muscoli e descrizione della loggia poplitea","Muscoli del cavo ascellare"]
             function createQuestion(){
                 var q1 = osteologia[Math.floor(Math.random() * osteologia.length)];
                 var q2 = artrologia[Math.floor(Math.random() * artrologia.length)];
