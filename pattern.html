@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pattern Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta name="theme-color" content="#c23616">
+</head>
+
+<body>
+    <style>
+        body{
+            background-color: #edf2f7;;
+        }
+        </style>
+    <nav class="navbar navbar-light custom">
+        <a class="navbar-brand" href="#">alessandrodimitrio.github.io</a>
+      </nav>
+    <div class="container">
+        <div id="pattern" class="pattern"></div>
+        <button type="button" onclick="generate()" class="btn btn-danger">Create</button>
+    </div>
+    <script>
+
+let containerPattern = document.querySelector(".pattern");
+
+let colors = ["#ffffff","#11c89f", "#f2ab13","#e4151b", "#000000"];
+
+ let clip = [
+	'circle(100% at 0 0)',
+	'circle(100% at 100% 0)',
+	'circle(100% at 100% 100%)',
+    'circle(100% at 0 100%)',
+    'circle(50% at 50% 50%)'
+]; 
+
+
+function random(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+for (let i = 0; i < 6; i++) {
+  const item = document.createElement("div");
+  item.className = "item";
+  let bg = random(colors);
+  let fg = random(colors);
+  while (fg === bg) {
+    fg = random(colors);
+  }
+  item.style.setProperty("--bg-color", bg);
+  item.style.setProperty("--fg-color", fg);
+  item.style.setProperty("--clip", random(clip));
+
+  const inner = document.createElement("div");
+  inner.className = "inner";
+
+  item.append(inner);
+}
+
+function generate() {
+  containerPattern.innerHTML = "";
+  for (let i = 0; i < 25; i++) {
+    const item = document.createElement("div");
+    item.className = "item";
+    let bg = random(colors);
+    let fg = random(colors);
+
+    while (fg === bg) {
+      fg = random(colors);
+    }
+    item.style.setProperty("--bg-color", bg);
+    item.style.setProperty("--fg-color", fg);
+    item.style.setProperty("--clip", random(clip));
+
+    const inner = document.createElement("div");
+    inner.className = "inner";
+
+    item.append(inner);
+    containerPattern.append(item);
+  }
+}
+generate();
+    </script>
+</body>
+
+</html>
