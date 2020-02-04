@@ -8,13 +8,17 @@ body {
     font-size: 14px;
     font-weight:300;    
     line-height: 20px;
-    background:#fefefe;
     color:#333;
 }
-.topbanner{
-    height: 20px;
-    background-color: #9e2c13;
+.custom{
+    background-color: white;
     margin-bottom: 5vh;
+    border-bottom: 1px solid#e2e8f0;
+}
+.navbar-light .navbar-brand{
+    color: black !important;
+    text-align: center;
+    
 }
 label{
     font-size: 0.8em;
@@ -99,4 +103,96 @@ a, a:visited {
 
 img {
     max-width: 100%;
+}
+
+.container__txt {
+    background: #ffffff;
+    padding: 48px;
+    font-family: "Raleway", sans-serif;
+}
+
+.title {
+    font-size: 32px;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.blurb {
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: gray;
+    line-height: 1.4;
+}
+
+.btn:hover {
+    /* https://moustafajazzar.github.io/material-shadows/ */
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+        0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+}
+
+.btn:active {
+    /* https://moustafajazzar.github.io/material-shadows/ */
+    box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2),
+        0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+}
+
+.btn .bg {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 40px 40px;
+    justify-content: space-between;
+    opacity: 0.8;
+}
+
+.btn .btn__txt {
+    position: relative;
+    z-index: 5;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: "Raleway", sans-serif;
+}
+@media (max-width:600px) {
+    .pattern {
+    width: 90vw;
+    height: 90vw;
+    display: grid;
+    margin:0 auto;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,.1), 0 10px 10px -5px rgba(0,0,0,.04);
+}}
+
+@media (min-width:600px) {
+    .pattern {
+        width: 500px;
+        height: 500px;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 20px 25px -5px rgba(0,0,0,.1), 0 10px 10px -5px rgba(0,0,0,.04);
+    }
+}
+
+
+.item {
+    position: relative;
+    background: var(--bg-color);
+    border: 0px solid white;
+}
+
+.inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: var(--clip);
+    background: var(--fg-color);
 }
