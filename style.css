@@ -20,13 +20,6 @@ body {
     text-align: center;
     
 }
-label{
-    font-size: 0.8em;
-    border-radius: 10px;
-    background-color: #d1f6ff;
-    color: #0abde3;
-    padding: 5px;
-}
 h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
     margin: 2em 0px 15px 0px;
