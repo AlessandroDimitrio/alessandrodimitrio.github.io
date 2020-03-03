@@ -3,17 +3,18 @@ html { font-family: 'Inter', sans-serif; }
 @supports (font-variation-settings: normal) {
   html { font-family: 'Inter var', sans-serif; }
 }
-
-body {
-    font-size: 14px;
-    font-weight:300;    
-    line-height: 20px;
-    color:#333;
-}
 .custom{
     background-color: white;
     margin-bottom: 5vh;
     border-bottom: 1px solid#e2e8f0;
+}
+
+ion-toolbar {
+    color: black;
+    --background: white;
+}
+ion-content{
+    --background: #edf2f7;
 }
 .navbar-light .navbar-brand{
     color: black !important;
@@ -157,7 +158,6 @@ img {
     grid-template-rows: repeat(5, 1fr);
     margin-bottom: 20px;
     border-radius: 10px;
-    box-shadow: 0 20px 25px -5px rgba(0,0,0,.1), 0 10px 10px -5px rgba(0,0,0,.04);
 }}
 
 @media (min-width:600px) {
@@ -169,7 +169,6 @@ img {
         grid-template-rows: repeat(5, 1fr);
         margin-bottom: 20px;
         border-radius: 10px;
-        box-shadow: 0 20px 25px -5px rgba(0,0,0,.1), 0 10px 10px -5px rgba(0,0,0,.04);
     }
 }
 
