@@ -2,27 +2,25 @@
 <html>
 <head>
     <title>Alessandro Dimitrio</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Frontend -->
+    <link rel="stylesheet" href="style.css">
     <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core@next/dist/ionic/ionic.esm.js"></script>
     <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core@next/dist/ionic/ionic.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core@next/css/ionic.bundle.css" />
-    <meta name="theme-color" content="#341f97">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+
+    <!-- Backend -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+    <script src="https://unpkg.com/ml5@0.4.3/dist/ml5.min.js"></script>
+    <script src="https://unpkg.com/smiles-drawer@1.2.0/dist/smiles-drawer.min.js"></script>
+
+    <meta name="theme-color" content="#e84118">
 </head>
-<style>
-    .toolbar-background {
-        background-color: #1e272e;
-    }
-
-    ion-toolbar {
-        color: white;
-        --background: #341f97;
-    }
-</style>
-
 <body>
     <ion-app>
-
         <ion-tabs>
             <ion-tab tab="tab-anatomia">
                 <ion-header translucent>
@@ -31,21 +29,31 @@
                     </ion-toolbar>
                 </ion-header>
                 <ion-content fullscreen class="ion-padding">
-                    <ion-text>
-                        <ion-chip>
-                            <ion-label>Osteologia</ion-label>
-                        </ion-chip>
-                        <h1 id="osteologia">...</h1>
-                        <ion-chip>
-                            <ion-label>Artrologia</ion-label>
-                        </ion-chip>
-                        <h1 id="artologia">...</h1>
-                        <ion-chip>
-                            <ion-label>Miologia</ion-label>
-                        </ion-chip>
-                        <h1 id="miologia">...</h1>
-                    </ion-text>
-                    <ion-button color="primary" onclick="createQuestionAnatomia()">Rigenera</ion-button>
+
+      <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+        <ion-fab-button color="dark">
+            <ion-icon name="refresh-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+                    <ion-card>
+                        <ion-card-content>
+                        <ion-text>
+                            <ion-chip>
+                                <ion-label>Osteologia</ion-label>
+                            </ion-chip>
+                            <h1 id="osteologia">...</h1>
+                            <ion-chip>
+                                <ion-label>Artrologia</ion-label>
+                            </ion-chip>
+                            <h1 id="artologia">...</h1>
+                            <ion-chip>
+                                <ion-label>Miologia</ion-label>
+                            </ion-chip>
+                            <h1 id="miologia">...</h1>
+                        </ion-text>
+                        <ion-button color="primary" onclick="createQuestionAnatomia()">Rigenera</ion-button>
+                    </ion-card-content>
+                    </ion-card>
                 </ion-content>
             </ion-tab>
 
@@ -56,10 +64,14 @@
                     </ion-toolbar>
                 </ion-header>
                 <ion-content fullscreen class="ion-padding">
+                    <ion-card>
+                        <ion-card-content>
                     <ion-text>
                         <h1 id="chimica"> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
                     </ion-text>
                     <ion-button color="primary" onclick="createQuestionChimica()">Rigenera</ion-button>
+                </ion-card-content>
+            </ion-card>
                 </ion-content>
             </ion-tab>
 
@@ -77,6 +89,89 @@
                 </ion-content>
             </ion-tab>
 
+            <ion-tab tab="tab-ai">
+                <ion-header translucent>
+                    <ion-toolbar>
+                        <ion-title>Ai</ion-title>
+                    </ion-toolbar>
+                </ion-header>
+                <ion-content style="--background: white !important" sfullscreen class="ion-padding">
+                    <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+                        <ion-fab-button color="dark" onclick="generate()">
+                            <ion-icon name="refresh-outline"></ion-icon>
+                        </ion-fab-button>
+                      </ion-fab>
+                    <h1 class="display-4">A Javascript approach to RNN Molecular Generation</h1>
+                    <p class="lead">Simple RNN Network trained on 19200 molecules</p>
+                    <ion-list lines="none">
+                        <ion-list-header>
+                            <ion-label>Parametri</ion-label>
+                          </ion-list-header>
+                        <ion-item>
+                            <ion-range id="temperature" min="0" max="1" step="0.1" value="0.8" snaps color="danger">
+                                <ion-icon slot="start" size="small" color="danger" name="thermometer"></ion-icon>
+                                <ion-icon slot="end" color="danger" name="thermometer"></ion-icon>
+                              </ion-range>
+                        </ion-item>
+                        <ion-item>
+                          <ion-range id="length" min="5" step="10" max="200" snaps color="secondary">
+                            <ion-icon slot="start" name="reorder-two-outline"></ion-icon>
+                            <ion-icon slot="end" name="reorder-four-outline"></ion-icon>
+                          </ion-range>
+                        </ion-item>
+                    </ion-list>
+                    <canvas id="canvas" width="500" height="500"></canvas>
+                    <p>Structures examples</p>
+                    <div class="row">
+                      <div class="column">
+                        <img src="public/img/mol.png">
+                        <img src="public/img/mol_1.png">
+                        <img src="public/img/mol_2.png">
+                        <img src="public/img/mol_3.png">
+                        <img src="public/img/mol_4.png">
+                        <img src="public/img/mol_5.png">
+                        <img src="public/img/mol_6.png">
+                      </div>
+                      <div class="column">
+                        <img src="public/img/mol_7.png">
+                        <img src="public/img/mol_8.png">
+                        <img src="public/img/mol_9.png">
+                        <img src="public/img/mol_10.png">
+                        <img src="public/img/mol_11.png">
+                        <img src="public/img/mol_12.png">
+                        <img src="public/img/mol_13.png">
+                      </div>
+                      <div class="column">
+                        <img src="public/img/mol_14.png">
+                        <img src="public/img/mol_15.png">
+                        <img src="public/img/mol_16.png">
+                        <img src="public/img/mol_17.png">
+                        <img src="public/img/mol_18.png">
+                        <img src="public/img/mol_19.png">
+                        <img src="public/img/mol_20.png">
+                      </div>
+                      <div class="column">
+                        <img src="public/img/mol_21.png">
+                        <img src="public/img/mol_22.png">
+                        <img src="public/img/mol_23.png">
+                        <img src="public/img/mol_24.png">
+                        <img src="public/img/mol_25.png">
+                        <img src="public/img/mol_26.png">
+                        <img src="public/img/mol_27.png">
+                      </div>
+                      <div class="column">
+                          <img src="public/img/mol_28.png">
+                          <img src="public/img/mol_29.png">
+                          <img src="public/img/mol_30.png">
+                          <img src="public/img/mol_31.png">
+                          <img src="public/img/mol_32.png">
+                          <img src="public/img/mol_33.png">
+                          <img src="public/img/mol_34.png">
+                        </div>
+                    </div>
+                    <ion-loading-controller></ion-loading-controller>
+                </ion-content>
+            </ion-tab>
             <ion-tab-bar slot="bottom">
                 <ion-tab-button tab="tab-anatomia">
                     <ion-icon name="hand-right-outline"></ion-icon>
@@ -92,96 +187,17 @@
                     <ion-icon name="grid-outline"></ion-icon>
                     <ion-label>Pattern</ion-label>
                 </ion-tab-button>
+
+                <ion-tab-button tab="tab-ai">
+                    <ion-icon name="beaker-outline"></ion-icon>
+                    <ion-label>Ai</ion-label>
+                </ion-tab-button>
             </ion-tab-bar>
 
         </ion-tabs>
     </ion-app>
-    </div>
-    <script>
-        let colors = ["#ffffff", "#11c89f", "#f2ab13", "#e4151b", "#000000"];
-
-        let clip = [
-            'circle(100% at 0 0)',
-            'circle(100% at 100% 0)',
-            'circle(100% at 100% 100%)',
-            'circle(100% at 0 100%)',
-            'circle(50% at 50% 50%)'
-        ];
-        let osteologia = ["Cavita orbitaria", "Gabbia toracica", "Osso etmoide", "Ossa del bacino", "Fossa infratemporale e pterigopalatina", "Fossa cranica posteriore", "Base esterna del cranio", "Osso sfenoide", "Cavità nasale", "Sterno e coste", "Osso sfenoide", "Vertebre cervicali", "Mandibola"]
-        let artrologia = ["Articolazione coxofemorale", "Articolazione del gomito", "Generalità di una diartrosi", "Generalità di una sinartrosi", "Articolazioni della colonna vertebrale", "Articolazione temporomandibolare", "Articolazione della caviglia"]
-        let miologia = ["Muscoli della loggia anteriore e posteriore della coscia", "Muscoli del braccio", "Muscoli dell'addome e canale inguinale", "Descrizione del cavo ascellare", "Triangolo femorale e canale degli adduttori", "Muscoli della loggia anteriore dell'avambraccio", "Fasce del collo e muscoli sopra e sottoioidei", "Muscoli della spalla", "Muscoli della loggia posteriore dell'avambraccio", "Muscoli della parete anterolaterale dell'addome", "Descrizione del triangolo femorale e dei muscoli", "Muscoli e descrizione della loggia poplitea", "Muscoli del cavo ascellare"]
-        let chimica = ["Acido benzoico", "Acido butanoico", "Acido etanoico(acetico)", "Acido metanoico(formico)", "Acido fumarico", "Acido fosfatidico", "Acido maleico", "Acido oleico", "Acido propanoico", "Acido stearico", "Ac. tricloracetico", "Alanina", "Anidride acetica", "Anilina", "Benzaldeide", "1,2-benzochinone", "1,4-benzochinone", "Benzo-idrochinone", "1-butanolo", "L 2-butanolo", "D 2-butanolo", "2-metil 1-propanolo(1-isobutanolo)", "2-metil 2-propanolo(2-isobutanolo)", "Butanale", "Butanone(metiletilchetone)", "1-butene", "Cis 2-butene", "Trans 2-butene", "Ciclopropano", "Ciclobutano", "Ciclopentano", "Cicloesano", "1,3-cicloesadiene", "1,3,5-cicloesatriene", "Etano", "Etanolo", "Etanale(acetaldeide)", "Etene (etilene)", "Etere difenilico", "Etino (acetilene)", "Fenili-etil etere", "Fenolo", "Fruttosio", "Furano", "Tetraidrofurano", "Glicerolo(1,2,3-propantriolo)", "Glicina", "Gliceraldeide", "Glucosio", "Imidazolo", "Maltosio", "Metanale(formaldeide)", "Metanolo", "Metilbenzene(toluene)", "Naftalene", "1-propanolo", "2-propanolo", "Propanone(acetone)", "Pirano", "Tetraidropirano", "Piridina", "Pirimidina", "Pirrolo", "Purina", "Ribosio", "Saccarosio", "Urea", "Triclorometano(cloroformio)"];
-
-
-        document.addEventListener("DOMContentLoaded", function(event) {
-            createQuestionAnatomia();
-            createQuestionChimica();
-            createPattern();
-        });
-
-        function createQuestionAnatomia() {
-            var q1 = osteologia[Math.floor(Math.random() * osteologia.length)];
-            var q2 = artrologia[Math.floor(Math.random() * artrologia.length)];
-            var q3 = miologia[Math.floor(Math.random() * miologia.length)];
-            var osteologiatext = document.getElementById("osteologia");
-            var artologiatext = document.getElementById("artologia");
-            var miologiatext = document.getElementById("miologia");
-            osteologiatext.innerHTML = q1;
-            artologiatext.innerHTML = q2;
-            miologiatext.innerHTML = q3;
-        }
-
-        function createQuestionChimica() {
-            var q3 = chimica[Math.floor(Math.random() * chimica.length)];
-            var chimicatext = document.getElementById("chimica");
-            chimicatext.innerHTML = q3;
-        }
-        let containerPattern = document.querySelector(".pattern");
-
-        function random(arr) {
-            return arr[Math.floor(Math.random() * arr.length)];
-        }
-        for (let i = 0; i < 6; i++) {
-            const item = document.createElement("div");
-            item.className = "item";
-            let bg = random(colors);
-            let fg = random(colors);
-            while (fg === bg) {
-                fg = random(colors);
-            }
-            item.style.setProperty("--bg-color", bg);
-            item.style.setProperty("--fg-color", fg);
-            item.style.setProperty("--clip", random(clip));
-
-            const inner = document.createElement("div");
-            inner.className = "inner";
-
-            item.append(inner);
-        }
-
-        function createPattern() {
-            containerPattern.innerHTML = "";
-            for (let i = 0; i < 25; i++) {
-                const item = document.createElement("div");
-                item.className = "item";
-                let bg = random(colors);
-                let fg = random(colors);
-
-                while (fg === bg) {
-                    fg = random(colors);
-                }
-                item.style.setProperty("--bg-color", bg);
-                item.style.setProperty("--fg-color", fg);
-                item.style.setProperty("--clip", random(clip));
-
-                const inner = document.createElement("div");
-                inner.className = "inner";
-
-                item.append(inner);
-                containerPattern.append(item);
-            }
-        }
-    </script>
+    <script src="public/js/main.js"></script>
+    <script src="public/js/tensor.js"></script>
 </body>
 
 </html>
