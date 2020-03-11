@@ -14,7 +14,6 @@
 
     <!-- Backend -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
-    <script src="https://unpkg.com/ml5@0.4.3/dist/ml5.min.js"></script>
     <script src="https://unpkg.com/smiles-drawer@1.2.0/dist/smiles-drawer.min.js"></script>
 
     <meta name="theme-color" content="#e84118">
@@ -22,73 +21,6 @@
 <body>
     <ion-app>
         <ion-tabs>
-            <ion-tab tab="tab-anatomia">
-                <ion-header translucent>
-                    <ion-toolbar>
-                        <ion-title>Anatomia</ion-title>
-                    </ion-toolbar>
-                </ion-header>
-                <ion-content fullscreen class="ion-padding">
-
-      <ion-fab horizontal="end" vertical="bottom" slot="fixed">
-        <ion-fab-button color="dark">
-            <ion-icon name="refresh-outline"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
-                    <ion-card>
-                        <ion-card-content>
-                        <ion-text>
-                            <ion-chip>
-                                <ion-label>Osteologia</ion-label>
-                            </ion-chip>
-                            <h1 id="osteologia">...</h1>
-                            <ion-chip>
-                                <ion-label>Artrologia</ion-label>
-                            </ion-chip>
-                            <h1 id="artologia">...</h1>
-                            <ion-chip>
-                                <ion-label>Miologia</ion-label>
-                            </ion-chip>
-                            <h1 id="miologia">...</h1>
-                        </ion-text>
-                        <ion-button color="primary" onclick="createQuestionAnatomia()">Rigenera</ion-button>
-                    </ion-card-content>
-                    </ion-card>
-                </ion-content>
-            </ion-tab>
-
-            <ion-tab tab="tab-chimica">
-                <ion-header translucent>
-                    <ion-toolbar>
-                        <ion-title>Chimica</ion-title>
-                    </ion-toolbar>
-                </ion-header>
-                <ion-content fullscreen class="ion-padding">
-                    <ion-card>
-                        <ion-card-content>
-                    <ion-text>
-                        <h1 id="chimica"> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
-                    </ion-text>
-                    <ion-button color="primary" onclick="createQuestionChimica()">Rigenera</ion-button>
-                </ion-card-content>
-            </ion-card>
-                </ion-content>
-            </ion-tab>
-
-            <ion-tab tab="tab-pattern">
-                <ion-header translucent>
-                    <ion-toolbar>
-                        <ion-title>Pattern</ion-title>
-                    </ion-toolbar>
-                </ion-header>
-                <ion-content fullscreen class="ion-padding">
-                    <div class="container">
-                        <div id="pattern" class="pattern"></div>
-                        <ion-button color="primary" onclick="createPattern()">Rigenera</ion-button>
-                    </div>
-                </ion-content>
-            </ion-tab>
-
             <ion-tab tab="tab-ai">
                 <ion-header translucent>
                     <ion-toolbar>
@@ -97,11 +29,11 @@
                 </ion-header>
                 <ion-content style="--background: white !important" sfullscreen class="ion-padding">
                     <ion-fab horizontal="end" vertical="bottom" slot="fixed">
-                        <ion-fab-button color="dark" onclick="generate()">
+                        <ion-fab-button color="dark" onclick="initMol()">
                             <ion-icon name="refresh-outline"></ion-icon>
                         </ion-fab-button>
                       </ion-fab>
-                    <h1 class="display-4">A Javascript approach to RNN Molecular Generation</h1>
+                    <h1 class="display-4"><strong>A Javascript approach to RNN Molecular Generation</strong></h1>
                     <p class="lead">Simple RNN Network trained on 19200 molecules</p>
                     <ion-list lines="none">
                         <ion-list-header>
@@ -114,13 +46,13 @@
                               </ion-range>
                         </ion-item>
                         <ion-item>
-                          <ion-range id="length" min="5" step="10" max="200" snaps color="secondary">
+                          <ion-range id="length" min="5" step="10" value="20" max="200" snaps color="secondary">
                             <ion-icon slot="start" name="reorder-two-outline"></ion-icon>
                             <ion-icon slot="end" name="reorder-four-outline"></ion-icon>
                           </ion-range>
                         </ion-item>
                     </ion-list>
-                    <canvas id="canvas" width="500" height="500"></canvas>
+                    <canvas id="molcanvas" width="300" height="300"></canvas>
                     <p>Structures examples</p>
                     <div class="row">
                       <div class="column">
@@ -172,25 +104,43 @@
                     <ion-loading-controller></ion-loading-controller>
                 </ion-content>
             </ion-tab>
+            <ion-tab tab="tab-pattern">
+                <ion-header translucent>
+                    <ion-toolbar>
+                        <ion-title>AD - Pattern</ion-title>
+                    </ion-toolbar>
+                </ion-header>
+                <ion-content fullscreen class="ion-padding">
+                    <div class="container">
+                        <div id="colorsdiv">
+                        </div>
+                          <br>
+                        <div id="pattern" class="pattern"></div>
+                        <ion-list>
+                            <ion-item>
+                              <ion-range id="redSlider" min="0" max="255" step="1" color="danger"></ion-range>
+                            </ion-item>
+                            <ion-item>
+                              <ion-range id="greenSlider" min="0" max="255" step="1" color="success"></ion-range>
+                            </ion-item>
+                            <ion-item>
+                              <ion-range id="blueSlider" min="0" max="255" step="1" color="primary"></ion-range>
+                            </ion-item>
+                          </ion-list>
+                          <br>
+                        <ion-button color="primary" expand="block onclick="createPattern()">Rigenera</ion-button>
+                    </div>
+                </ion-content>
+            </ion-tab>
             <ion-tab-bar slot="bottom">
-                <ion-tab-button tab="tab-anatomia">
-                    <ion-icon name="hand-right-outline"></ion-icon>
-                    <ion-label>Anatomia</ion-label>
-                </ion-tab-button>
-
-                <ion-tab-button tab="tab-chimica">
-                    <ion-icon name="git-network-outline"></ion-icon>
-                    <ion-label>Chimica</ion-label>
+                <ion-tab-button tab="tab-ai">
+                    <ion-icon name="beaker-outline"></ion-icon>
+                    <ion-label>Ai</ion-label>
                 </ion-tab-button>
 
                 <ion-tab-button tab="tab-pattern">
                     <ion-icon name="grid-outline"></ion-icon>
                     <ion-label>Pattern</ion-label>
-                </ion-tab-button>
-
-                <ion-tab-button tab="tab-ai">
-                    <ion-icon name="beaker-outline"></ion-icon>
-                    <ion-label>Ai</ion-label>
                 </ion-tab-button>
             </ion-tab-bar>
 

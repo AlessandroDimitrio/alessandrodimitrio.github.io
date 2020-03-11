@@ -1,4 +1,25 @@
-let colors = ["#ffffff", "#e84118", "#c23616"];
+const controller = document.querySelector('ion-loading-controller');
+var loading;
+
+async function loaderPresent(message) {
+  if (loading) {
+    await loading.dismiss();
+  }
+  loading = document.createElement('ion-loading');
+  loading.message = message;
+
+  document.body.appendChild(loading);
+  return await loading.present();
+}
+
+async function loaderDismiss(){
+  if (loading) {
+    await loading.dismiss();
+  }
+  $("ion-loading").remove();
+}
+
+let colors = ["rgb(255, 255, 255)", "rgb(55, 66, 250)", "rgb(30, 144, 255)", "rgb(0, 0, 0)"];
 
 let clip = [
     'circle(100% at 0 0)',
@@ -7,35 +28,38 @@ let clip = [
     'circle(100% at 0 100%)',
     'circle(50% at 50% 50%)'
 ];
-let osteologia = ["Cavita orbitaria", "Gabbia toracica", "Osso etmoide", "Ossa del bacino", "Fossa infratemporale e pterigopalatina", "Fossa cranica posteriore", "Base esterna del cranio", "Osso sfenoide", "Cavità nasale", "Sterno e coste", "Osso sfenoide", "Vertebre cervicali", "Mandibola"]
-let artrologia = ["Articolazione coxofemorale", "Articolazione del gomito", "Generalità di una diartrosi", "Generalità di una sinartrosi", "Articolazioni della colonna vertebrale", "Articolazione temporomandibolare", "Articolazione della caviglia"]
-let miologia = ["Muscoli della loggia anteriore e posteriore della coscia", "Muscoli del braccio", "Muscoli dell'addome e canale inguinale", "Descrizione del cavo ascellare", "Triangolo femorale e canale degli adduttori", "Muscoli della loggia anteriore dell'avambraccio", "Fasce del collo e muscoli sopra e sottoioidei", "Muscoli della spalla", "Muscoli della loggia posteriore dell'avambraccio", "Muscoli della parete anterolaterale dell'addome", "Descrizione del triangolo femorale e dei muscoli", "Muscoli e descrizione della loggia poplitea", "Muscoli del cavo ascellare"]
-let chimica = ["Acido benzoico", "Acido butanoico", "Acido etanoico(acetico)", "Acido metanoico(formico)", "Acido fumarico", "Acido fosfatidico", "Acido maleico", "Acido oleico", "Acido propanoico", "Acido stearico", "Ac. tricloracetico", "Alanina", "Anidride acetica", "Anilina", "Benzaldeide", "1,2-benzochinone", "1,4-benzochinone", "Benzo-idrochinone", "1-butanolo", "L 2-butanolo", "D 2-butanolo", "2-metil 1-propanolo(1-isobutanolo)", "2-metil 2-propanolo(2-isobutanolo)", "Butanale", "Butanone(metiletilchetone)", "1-butene", "Cis 2-butene", "Trans 2-butene", "Ciclopropano", "Ciclobutano", "Ciclopentano", "Cicloesano", "1,3-cicloesadiene", "1,3,5-cicloesatriene", "Etano", "Etanolo", "Etanale(acetaldeide)", "Etene (etilene)", "Etere difenilico", "Etino (acetilene)", "Fenili-etil etere", "Fenolo", "Fruttosio", "Furano", "Tetraidrofurano", "Glicerolo(1,2,3-propantriolo)", "Glicina", "Gliceraldeide", "Glucosio", "Imidazolo", "Maltosio", "Metanale(formaldeide)", "Metanolo", "Metilbenzene(toluene)", "Naftalene", "1-propanolo", "2-propanolo", "Propanone(acetone)", "Pirano", "Tetraidropirano", "Piridina", "Pirimidina", "Pirrolo", "Purina", "Ribosio", "Saccarosio", "Urea", "Triclorometano(cloroformio)"];
 
 
 document.addEventListener("DOMContentLoaded", function(event) {
-    createQuestionAnatomia();
-    createQuestionChimica();
     createPattern();
+    var colorsdiv = document.getElementById("colorsdiv"); 
+    for(color in colors){
+        colorsdiv.innerHTML +=   `
+            <ion-chip outline onclick='changeColor(${color})' id="chip-${color}" style="--color:${colors[color]}; border-color:${colors[color]}">
+                <ion-label>${color}</ion-label>
+            </ion-chip> `
+    }
 });
-
-function createQuestionAnatomia() {
-    var q1 = osteologia[Math.floor(Math.random() * osteologia.length)];
-    var q2 = artrologia[Math.floor(Math.random() * artrologia.length)];
-    var q3 = miologia[Math.floor(Math.random() * miologia.length)];
-    var osteologiatext = document.getElementById("osteologia");
-    var artologiatext = document.getElementById("artologia");
-    var miologiatext = document.getElementById("miologia");
-    osteologiatext.innerHTML = q1;
-    artologiatext.innerHTML = q2;
-    miologiatext.innerHTML = q3;
+function changeColor(index){
+    loaderPresent("Prendo i valori...");
+    var rgb = colors[index];
+    rgb = rgb.substring(4, rgb.length-1)
+            .replace(/ /g, '')
+            .split(',');
+    var redSlider = document.getElementById("redSlider"); 
+    var greenSlider = document.getElementById("greenSlider"); 
+    var blueSlider = document.getElementById("blueSlider");
+    redSlider.ionChange = console.log("ciao");
+    greenSlider.ionChange = console.log("ciao");
+    blueSlider.ionChange = console.log("ciao");
+    redSlider.value = rgb[0];
+    greenSlider.value = rgb[1];
+    blueSlider.value = rgb[2];
+    loaderDismiss()
+    
+    
 }
 
-function createQuestionChimica() {
-    var q3 = chimica[Math.floor(Math.random() * chimica.length)];
-    var chimicatext = document.getElementById("chimica");
-    chimicatext.innerHTML = q3;
-}
 let containerPattern = document.querySelector(".pattern");
 
 function random(arr) {
