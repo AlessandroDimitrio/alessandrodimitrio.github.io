@@ -1,33 +1,33 @@
 @import url('https://rsms.me/inter/inter.css');
 html { font-family: 'Inter', sans-serif; }
 @supports (font-variation-settings: normal) {
-  html { font-family: 'Inter var', sans-serif; }
+  html { font-family: 'Inter var', sans-serif; color: white;}
 }
 .custom{
-    background-color: white;
+    background-color: #15191e;
     margin-bottom: 5vh;
     border-bottom: 1px solid#e2e8f0;
 }
 
 ion-toolbar {
-    color: black;
-    --background: white;
+    color: white;
+    --background: black;
 }
-/* ion-content{
-    --background: #edf2f7;
-} */
+ion-content{
+    --background: #15191e;
+} 
 .navbar-light .navbar-brand{
     color: black !important;
     text-align: center;
     
 }
 h1, h2, h3, h4, h5, h6 {
+    color:white;
     font-weight: bold;
     margin: 2em 0px 15px 0px;
 }
 
 h1 {
-    color: #000;
     font-size: 2em;
 }
 
@@ -181,7 +181,7 @@ canvas{
 
 .item {
     position: relative;
-    background: var(--bg-color);
+    --background: #151515;
     border: 0px solid white;
 }
 
@@ -193,4 +193,18 @@ canvas{
     height: 100%;
     clip-path: var(--clip);
     background: var(--fg-color);
+}
+.list-md {
+    border-radius: 10px;
+    background: #151515;
+}
+.list-ios {
+    border-radius: 10px;
+    background: #151515;
+}
+ion-label,p{
+    color: white;
+}
+ion-tab-bar{
+    --background: #151515;
 }

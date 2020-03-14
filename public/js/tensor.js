@@ -131,10 +131,28 @@ function initMol(){
         width: 300,
         height: 300,
         terminalCarbons: true,
-        bondThickness: 1
+        bondThickness: 1,
+        explicitHydrogens: true,
+        themes: {
+          dark: {
+              C: '#fff',
+              O: '#e74c3c',
+              N: '#3498db',
+              F: '#27ae60',
+              CL: '#16a085',
+              BR: '#d35400',
+              I: '#8e44ad',
+              P: '#d35400',
+              S: '#f1c40f',
+              B: '#e67e22',
+              SI: '#e67e22',
+              H: '#fff',
+              BACKGROUND: '#141414'
+          },
+        }
     });
     SmilesDrawer.parse(smile, function(tree) {
-      molecule.draw(tree, "molcanvas", "light", false);
+      molecule.draw(tree, "molcanvas", "dark", false);
       loaderDismiss();
     }, function (err) {
       console.log(err);
