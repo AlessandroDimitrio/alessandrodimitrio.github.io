@@ -1,7 +1,6 @@
-@import url('https://rsms.me/inter/inter.css');
-html { font-family: 'Inter', sans-serif; }
-@supports (font-variation-settings: normal) {
-  html { font-family: 'Inter var', sans-serif; color: white;}
+@import url(https://fonts.googleapis.com/css?family=Nunito:400,700,300);
+* {
+    font-family: 'Nunito', sans-serif !important;
 }
 .custom{
     background-color: #15191e;
@@ -11,10 +10,13 @@ html { font-family: 'Inter', sans-serif; }
 
 ion-toolbar {
     color: white;
-    --background: black;
+    --background: rgba(0,0,0,0);
 }
 ion-content{
-    --background: #15191e;
+    --background: #141414;  /* fallback for old browsers */
+    --background: -webkit-linear-gradient(to bottom, #141414, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+    --background: linear-gradient(to bottom, #141414, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 } 
 .navbar-light .navbar-brand{
     color: black !important;
@@ -197,10 +199,12 @@ canvas{
 .list-md {
     border-radius: 10px;
     background: #151515;
+    border:1px solid #212121;
 }
 .list-ios {
     border-radius: 10px;
     background: #151515;
+    border:1px solid #212121;
 }
 ion-label,p{
     color: white;
